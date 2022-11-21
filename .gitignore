@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# Other files
+*.csv
+main
+
+# Extra folders
+.idea/
+.vscode/
+.vs/
