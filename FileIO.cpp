@@ -1,23 +1,23 @@
 #include "FileIO.h"
 
 //read csv file into vector of strings
-std::vector<std::string> readCSV(std::string filename)
+std::string CSVtoString(std::string fileName)
 {
-    std::ifstream file(filename);
-    std::vector<std::string> lines;
+    std::ifstream file(fileName);
     std::string line;
+    std::string csvStr;
     while (getline(file, line))
     {
-        lines.push_back(line);
+        csvStr += line + "\n";
     }
-    return lines;
+    return csvStr;
 }
 
 //read csv file into vector of Movie objects
-std::vector<Movie> parseCSV(std::string filename)
-{
+// std::vector<Movie> parseCSV(std::string filename)
+// {
     
-}
+// }
 
 //search for user's movies by title in the vector of all movies
 //use formatTextInput(std::string) to format searchTerm and movie title
@@ -26,7 +26,7 @@ std::vector<Movie> searchMovies(std::vector<Movie> movies, std::string searchTer
     std::vector<Movie> searchResults;
     for (const auto& movie : movies)
     {
-        if (formatTextInput(movie.getTitle()).find(formatTextInput(searchTerm)) != std::string::npos)
+        if (UTIL::formatTextInput(movie.getTitle()).find(UTIL::formatTextInput(searchTerm)) != std::string::npos)
         {
             searchResults.push_back(movie);
         }

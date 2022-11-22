@@ -4,16 +4,13 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <iostream>
+//#include <experimental/iterator>
 
-class UserList
+struct Genre
 {
-public:
-    UserList();
-    UserList(std::vector<Movie> userMovies);
-    std::vector<Movie> getUserMovies() const;
-    void addMovie(Movie movie);
-private:
-    std::vector<Movie> userMovies;
+    int id{0};
+    std::string name{"N/A"};
 };
 
 class Movie
@@ -35,10 +32,16 @@ private:
     std::vector<Genre> genres;
 };
 
-struct Genre
+class UserList
 {
-    int id{0};
-    std::string name{"N/A"};
+public:
+    UserList();
+    UserList(std::vector<Movie> userMovies);
+    std::vector<Movie> getUserMovies() const;
+    void addMovie(Movie movie);
+private:
+    std::vector<Movie> userMovies;
 };
+
 
 #endif
