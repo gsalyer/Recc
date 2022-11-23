@@ -1,25 +1,5 @@
 #include "Movies.h"
 
-//class UserList
-//constrcutors
-UserList::UserList() {}
-UserList::UserList(std::vector<Movie> userMovies)
-{
-    this->userMovies = userMovies;
-}
-
-//accessors
-std::vector<Movie> UserList::getUserMovies() const
-{
-    return userMovies;
-}
-
-//add movie to user's list
-void UserList::addMovie(Movie& movie)
-{
-    userMovies.push_back(movie);
-}
-
 //class Movie
 //constructors
 Movie::Movie() {}
@@ -77,7 +57,7 @@ void Movie::addGenreMulti(std::vector<NamesIDs> genres)
     this->genres = genres;
 }
 
-//prinnt grenre names separated by commas
+//print grenre names separated by commas
 void Movie::printGenres() const
 {
     for (const auto& genre : genres)
@@ -85,4 +65,55 @@ void Movie::printGenres() const
         std::cout << genre.name << " ";
     }
     std::cout << std::endl;
+}
+
+//class UserList
+//constrcutors
+UserList::UserList() {}
+UserList::UserList(std::vector<Movie> userMovies)
+{
+    this->userMovies = userMovies;
+}
+
+//accessors
+std::vector<Movie> UserList::getUserMovies() const
+{
+    return userMovies;
+}
+
+//add movie to user's list
+void UserList::addMovie(Movie& movie)
+{
+    userMovies.push_back(movie);
+}
+
+//call each private function to store weights for each category
+void UserList::calcWeights()
+{
+    this->userGenreWeights = this->calcUserGenreWeights();
+    //TODO: add more weights
+}
+
+//calculate weights for each genre and store in map
+//weights are calculated by adding the frequency of each genre in the user's list of movies
+//weights are stored in a map with the genre id as the key and the weight as the value
+std::map<int, int> UserList::calcUserGenreWeights()
+{
+    std::map<int, int> genreWeights;
+    for (const auto& movie : userMovies)
+    {
+        for (const auto& genre : movie.getGenres())
+        {
+            //if not found, insert new key-value pair
+            if (genreWeights.find(genre.id) == genreWeights.end())
+            {
+                genreWeights[genre.id] = 1;
+            }
+            else
+            {
+                genreWeights[genre.id]++;
+            }
+        }
+    }
+    return genreWeights;
 }

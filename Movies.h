@@ -61,8 +61,12 @@ public:
     UserList(std::vector<Movie> userMovies);
     std::vector<Movie> getUserMovies() const;
     void addMovie(Movie& movie);
+    void calcWeights();
+    int getUserGenreWeight() const;
 private:
+    std::map<int, int> calcUserGenreWeights();
     std::vector<Movie> userMovies;
+    std::map<int, int> userGenreWeights;
 };
 
 
