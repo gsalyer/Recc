@@ -32,7 +32,6 @@
 *.app
 
 # Other files
-*.csv
 main
 
 # Extra folders
