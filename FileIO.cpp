@@ -3,7 +3,7 @@
 namespace FILEIO
 {
     //read csv file into vector of strings
-    std::string CSVtoStr(std::string fileName)
+    std::string CSVtoStr(const std::string& fileName)
     {
         std::ifstream file(fileName);
         std::string line;
@@ -110,7 +110,7 @@ namespace FILEIO
 
     //compare the map of all movies to the map of userGenreWeights
     //calculate the score for each movie in the map by adding all of the userGenreWeights that match the movie's genres
-    //return the score in descending order as a multimap
+    //return the score in ascending order as a multimap
     std::multimap<int, Movie> calcScores(const std::map<int, Movie>& movies, const UserList& user)
     {
         std::multimap<int, Movie> scores;
@@ -129,7 +129,7 @@ namespace FILEIO
                 }
                 //TODO: score others
 
-                //add score to multimap if movie is not in user's list
+                //add score to multimap in ascending order
                 scores.insert(std::pair<int, Movie>(score, movie.second));
             }
         }

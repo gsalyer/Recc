@@ -26,10 +26,6 @@
 //     >
 // > MovieContainer;
 
-bool operator==(const Movie& lhs, const Movie& rhs);
-bool operator==(const Movie& movie, const int& id);
-bool operator==(const int& id, const Movie& movie);
-
 struct NamesIDs
 {
     int id{0};
@@ -73,5 +69,8 @@ private:
     std::map<int, int> userGenreWeights;
 };
 
+bool operator==(const Movie& lhs, const Movie& rhs);
+bool operator==(const Movie& movie, const int& id);
+bool operator==(const int& id, const Movie& movie);
 
 #endif
