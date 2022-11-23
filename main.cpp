@@ -39,11 +39,11 @@ int main()
     //     }
     // }
 
-    std::vector<NamesIDs> namesIDs = FILEIO::parseNamesIDs("[{\"id\": 28, \"name\": \"Action\"}, {\"id\": 12, \"name\": \"Adventure\"}]");
-    for (const auto& nameID : namesIDs)
-    {
-        std::cout << nameID.id << " " << nameID.name << std::endl;
-    }
+    // std::vector<NamesIDs> namesIDs = FILEIO::parseNamesIDs("[{\"id\": 28, \"name\": \"Action\"}, {\"id\": 12, \"name\": \"Adventure\"}]");
+    // for (const auto& nameID : namesIDs)
+    // {
+    //     std::cout << nameID.id << " " << nameID.name << std::endl;
+    // }
 
     return 0;
 }

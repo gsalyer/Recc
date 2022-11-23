@@ -90,7 +90,7 @@ void UserList::addMovie(Movie& movie)
 //call each private function to store weights for each category
 void UserList::calcWeights()
 {
-    this->userGenreWeights = this->calcUserGenreWeights();
+    userGenreWeights = this->calcUserGenreWeights();
     //TODO: add more weights
 }
 
@@ -116,4 +116,19 @@ std::map<int, int> UserList::calcUserGenreWeights()
         }
     }
     return genreWeights;
+}
+
+//return the userGenreWeight for the given genre id
+//if not found, return 0
+int UserList::getUserGenreWeight(int id) const
+{
+    auto it = userGenreWeights.find(id);
+    if (it != userGenreWeights.end())
+    {
+        return it->second;
+    }
+    else
+    {
+        return 0;
+    }
 }

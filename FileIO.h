@@ -19,6 +19,7 @@ namespace FILEIO
     std::map<int, Movie> parseCSV(const jsoncons::ojson& j);
     std::vector<Movie> searchMovies(const std::map<int, Movie>& movies, std::string& searchTerm);
     std::vector<NamesIDs> parseNamesIDs(std::string cellStr);
+    std::multimap<int, Movie> calcScores(const std::map<int, Movie>& movies, const UserList& user);
 }
 
 

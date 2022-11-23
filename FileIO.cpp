@@ -107,4 +107,25 @@ namespace FILEIO
         }
         return namesIDs;
     }
+
+    //compare the map of all movies to the map of userGenreWeights
+    //calculate the score for each movie in the map by adding all of the userGenreWeights that match the movie's genres
+    //return the score in descending order as a multimap
+    std::multimap<int, Movie> calcScores(const std::map<int, Movie>& movies, const UserList& user)
+    {
+        std::multimap<int, Movie> scores;
+        for (const auto& movie : movies)
+        {
+            int score = 0;
+            //score genres
+            for (const auto& genre : movie.second.getGenres())
+            {
+                //add all weights to score, weight will be 0 if not in userGenreWeights
+                score += user.getUserGenreWeight(genre.id);
+            }
+            //TODO: score others
+            scores.insert(std::pair<int, Movie>(score, movie.second));
+        }
+        return scores;
+    }   
 }
