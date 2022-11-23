@@ -26,6 +26,10 @@
 //     >
 // > MovieContainer;
 
+bool operator==(const Movie& lhs, const Movie& rhs);
+bool operator==(const Movie& movie, const int& id);
+bool operator==(const int& id, const Movie& movie);
+
 struct NamesIDs
 {
     int id{0};

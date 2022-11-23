@@ -1,5 +1,7 @@
 /*
 * * Design Doc * *
+Name:
+Garrett Salyer
 
 * Project description:
 Given a list of movies from the user, recommend a separate list of new movies.
@@ -72,13 +74,13 @@ int calculateScore(Movie movie, map<T1, int> weights)
 }
 
 //given a vector of all movies, return a vector of the top 10 movies based on the total score
-vector<Movie> recommendMovies(vector<Movie> movies)
+mutlimap<int, Movie> recommendMovies(vector<Movie> movies)
 {
-    vector<Movie> recommendations;
-    //iterate through movies vector
+    multimap<Movie> recommendations;
+    //iterate through movies map
     //calculate total score for each movie based on user weights
     //sort movies vector by total score
-    //return top 10 movies
+    //return movies by score in descending order
     return recommendations;
 }
 

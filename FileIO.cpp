@@ -114,17 +114,24 @@ namespace FILEIO
     std::multimap<int, Movie> calcScores(const std::map<int, Movie>& movies, const UserList& user)
     {
         std::multimap<int, Movie> scores;
+        auto beginit = user.getUserMovies().begin();
+        auto endit = user.getUserMovies().end();
         for (const auto& movie : movies)
         {
-            int score = 0;
-            //score genres
-            for (const auto& genre : movie.second.getGenres())
+            if (std::find(beginit, endit, movie.first) == endit)
             {
-                //add all weights to score, weight will be 0 if not in userGenreWeights
-                score += user.getUserGenreWeight(genre.id);
+                int score = 0;
+                //score genres
+                for (const auto& genre : movie.second.getGenres())
+                {
+                    //add all weights to score, weight will be 0 if not in userGenreWeights
+                    score += user.getUserGenreWeight(genre.id);
+                }
+                //TODO: score others
+
+                //add score to multimap if movie is not in user's list
+                scores.insert(std::pair<int, Movie>(score, movie.second));
             }
-            //TODO: score others
-            scores.insert(std::pair<int, Movie>(score, movie.second));
         }
         return scores;
     }   

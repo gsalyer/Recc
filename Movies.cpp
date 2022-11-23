@@ -1,5 +1,19 @@
 #include "Movies.h"
 
+//operator overloading
+bool operator==(const Movie& lhs, const Movie& rhs)
+{
+    return (lhs.getId() == rhs.getId());
+}
+bool operator==(const Movie& movie, const int& id)
+{
+    return (movie.getId() == id);
+}
+bool operator==(const int& id, const Movie& movie)
+{
+    return (id == movie.getId());
+}
+
 //class Movie
 //constructors
 Movie::Movie() {}
