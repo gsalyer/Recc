@@ -15,9 +15,9 @@
 
 namespace FILEIO
 {
-    std::string CSVtoStr(std::string filename);
+    std::string CSVtoStr(const std::string& filename);
     std::map<int, Movie> parseCSV(const jsoncons::ojson& j);
-    std::vector<Movie> searchMovies(const std::map<int, Movie>& movies, std::string title);
+    std::vector<Movie> searchMovies(const std::map<int, Movie>& movies, std::string& searchTerm);
     std::vector<NamesIDs> parseNamesIDs(std::string cellStr);
 }
 

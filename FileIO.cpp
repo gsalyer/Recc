@@ -31,16 +31,17 @@ namespace FILEIO
         return movies;
     }
 
-    //search for user's movies by title in the vector of all movies
+    //search for user's movies by title in the map of all movies
     //use formatTextInput(std::string) to format searchTerm and movie title
-    std::vector<Movie> searchMovies(std::vector<Movie> movies, std::string searchTerm)
+    std::vector<Movie> searchMovies(const std::map<int, Movie>& movies, std::string& searchTerm)
     {
         std::vector<Movie> searchResults;
         for (const auto& movie : movies)
         {
-            if (UTIL::formatTextInput(movie.getTitle()).find(UTIL::formatTextInput(searchTerm)) != std::string::npos)
+            //if the formatted movie title contains the formatted search term, add it to the search results
+            if (UTIL::formatTextInput(movie.second.getTitle()).find(UTIL::formatTextInput(searchTerm)) != std::string::npos)
             {
-                searchResults.push_back(movie);
+                searchResults.push_back(movie.second);
             }
         }
         return searchResults;
