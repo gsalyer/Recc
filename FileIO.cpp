@@ -1,35 +1,109 @@
 #include "FileIO.h"
 
-//read csv file into vector of strings
-std::string CSVtoString(std::string fileName)
+namespace FILEIO
 {
-    std::ifstream file(fileName);
-    std::string line;
-    std::string csvStr;
-    while (getline(file, line))
+    //read csv file into vector of strings
+    std::string CSVtoStr(std::string fileName)
     {
-        csvStr += line + "\n";
-    }
-    return csvStr;
-}
-
-//read csv file into vector of Movie objects
-// std::vector<Movie> parseCSV(std::string filename)
-// {
-    
-// }
-
-//search for user's movies by title in the vector of all movies
-//use formatTextInput(std::string) to format searchTerm and movie title
-std::vector<Movie> searchMovies(std::vector<Movie> movies, std::string searchTerm)
-{
-    std::vector<Movie> searchResults;
-    for (const auto& movie : movies)
-    {
-        if (UTIL::formatTextInput(movie.getTitle()).find(UTIL::formatTextInput(searchTerm)) != std::string::npos)
+        std::ifstream file(fileName);
+        std::string line;
+        std::string csvStr;
+        while (getline(file, line))
         {
-            searchResults.push_back(movie);
+            csvStr += line + "\n";
         }
+        return csvStr;
     }
-    return searchResults;
+
+    //read ojson object into map of Movie objects
+    //key is movie id, value is Movie object
+    std::map<int, Movie> parseCSV(const jsoncons::ojson& j)
+    {
+        std::map<int, Movie> movies;
+        for (const auto& row : j.array_range())
+        {
+            Movie movie;
+            movie.setId(row["id"].as<int>());
+            movie.setTitle(row["title"].as<std::string>());
+            movie.addGenreMulti(parseNamesIDs(row["genres"].as<std::string>()));
+            movies.insert(std::pair<int, Movie>(movie.getId(), movie));
+        }
+        return movies;
+    }
+
+    //search for user's movies by title in the vector of all movies
+    //use formatTextInput(std::string) to format searchTerm and movie title
+    std::vector<Movie> searchMovies(std::vector<Movie> movies, std::string searchTerm)
+    {
+        std::vector<Movie> searchResults;
+        for (const auto& movie : movies)
+        {
+            if (UTIL::formatTextInput(movie.getTitle()).find(UTIL::formatTextInput(searchTerm)) != std::string::npos)
+            {
+                searchResults.push_back(movie);
+            }
+        }
+        return searchResults;
+    }
+
+    //parse string from CSV cell into vector of NamesIDs objects
+    //string pattern is "[{'id': <int>, 'name': '<string>'}, ...]"
+    std::vector<NamesIDs> parseNamesIDs(std::string cellStr)
+    {
+        std::vector<NamesIDs> namesIDs;
+        std::string idStr;
+        std::string nameStr;
+        std::string tempStr;
+        int id;
+        std::string name;
+        bool idFlag = false;
+        bool nameFlag = false;
+        for (const char& c : cellStr)
+        {
+            if (c == '{')
+            {
+                continue;
+            }
+            else if (c == '}')
+            {
+                id = std::stoi(idStr);
+                name = nameStr;
+                NamesIDs namesID{id, name};
+                namesIDs.push_back(namesID);
+                idStr = "";
+                nameStr = "";
+                idFlag = false;
+                nameFlag = false;
+            }
+            else if (c == ':')
+            {
+                if (idFlag)
+                {
+                    idFlag = false;
+                    nameFlag = true;
+                }
+                else if (nameFlag)
+                {
+                    nameFlag = false;
+                }
+                else
+                {
+                    idFlag = true;
+                }
+            }
+            else if (c == '\"')
+            {
+                continue;
+            }
+            else if (idFlag)
+            {
+                idStr += c;
+            }
+            else if (nameFlag)
+            {
+                nameStr += c;
+            }
+        }
+        return namesIDs;
+    }
 }

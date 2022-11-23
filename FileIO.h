@@ -12,9 +12,14 @@
 #include "jsoncons/json.hpp"
 #include "jsoncons_ext/csv/csv.hpp"
 
-std::string CSVtoStr(std::string filename);
-std::vector<Movie> parseCSV(std::string filename);
-std::vector<Movie> searchMovies(std::vector<Movie> movies, std::string title);
+
+namespace FILEIO
+{
+    std::string CSVtoStr(std::string filename);
+    std::map<int, Movie> parseCSV(const jsoncons::ojson& j);
+    std::vector<Movie> searchMovies(const std::map<int, Movie>& movies, std::string title);
+    std::vector<NamesIDs> parseNamesIDs(std::string cellStr);
+}
 
 
 #endif

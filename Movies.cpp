@@ -15,7 +15,7 @@ std::vector<Movie> UserList::getUserMovies() const
 }
 
 //add movie to user's list
-void UserList::addMovie(Movie movie)
+void UserList::addMovie(Movie& movie)
 {
     userMovies.push_back(movie);
 }
@@ -34,12 +34,17 @@ int Movie::getId() const
     return id;
 }
 
+int Movie::getUserScore() const
+{
+    return userScore;
+}
+
 std::string Movie::getTitle() const
 {
     return title;
 }
 
-std::vector<Genre> Movie::getGenres() const
+std::vector<NamesIDs> Movie::getGenres() const
 {
     return genres;
 }
@@ -50,15 +55,26 @@ void Movie::setId(int id)
     this->id = id;
 }
 
+void Movie::setUserScore(int userScore)
+{
+    this->userScore = userScore;
+}
+
 void Movie::setTitle(std::string title)
 {
     this->title = title;
 }
 
 //add genre to movie
-void Movie::addGenre(Genre genre)
+void Movie::addGenre(NamesIDs& genre)
 {
     genres.push_back(genre);
+}
+
+//add multiple genres to movie
+void Movie::addGenreMulti(std::vector<NamesIDs> genres)
+{
+    this->genres = genres;
 }
 
 //prinnt grenre names separated by commas

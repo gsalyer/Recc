@@ -10,13 +10,6 @@ namespace UTIL
         return (ignoreWords.find(word) != ignoreWords.end());
     }
 
-    // std::map<std::string, int> tokenize(const std::string& text)
-    // {
-    // }
-
-    //return a string with all ignore words removed
-    //and remove all non-alphanumeric characters
-    //and convert all characters to lowercase
     std::string formatTextInput(const std::string& text)
     {
         std::string formattedText;
@@ -37,4 +30,6 @@ namespace UTIL
         }
         return formattedText;
     }
+
+    
 }

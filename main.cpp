@@ -8,14 +8,14 @@
 //temp testing
 int main()
 {
-    //call readCSV("test.csv") and print the vector
-    const std::string data = CSVtoStr("tmdb_5000_movies.csv");
+    //call CSVtoStr()
+    // const std::string data = FILEIO::CSVtoStr("tmdb_5000_movies.csv");
 
-    jsoncons::csv::csv_options options;
-    options.assume_header(true);
+    // jsoncons::csv::csv_options options;
+    // options.assume_header(true);
 
     // Parse the CSV data into an ojson value
-    jsoncons::ojson j = jsoncons::csv::decode_csv<jsoncons::ojson>(data, options);
+    // jsoncons::ojson j = jsoncons::csv::decode_csv<jsoncons::ojson>(data, options);
 
     // Pretty print
     // jsoncons::json_options print_options;
@@ -23,23 +23,28 @@ int main()
     // std::cout << "(1)\n" << pretty_print(j, print_options) << "\n\n";
 
     // Iterate over the rows
-    std::cout << "Testing the first 10 rows\n";
-    int i = 0;
-    for (const auto& row : j.array_range())
+    // std::cout << "Testing the first 10 rows\n";
+    // int i = 0;
+    // for (const auto& row : j.array_range())
+    // {
+    //     if (i < 10)
+    //     {
+    //         // print column
+    //         std::cout << row["genres"].as<std::string>() << std::endl;
+    //         i++;
+    //     }
+    //     else
+    //     {
+    //         break;
+    //     }
+    // }
+
+    std::vector<NamesIDs> namesIDs = FILEIO::parseNamesIDs("[{\"id\": 28, \"name\": \"Action\"}, {\"id\": 12, \"name\": \"Adventure\"}]");
+    for (const auto& nameID : namesIDs)
     {
-        if (i < 10)
-        {
-            // print column
-            std::cout << row["genres"].as<std::string>() << std::endl;
-            i++;
-        }
-        else
-        {
-            break;
-        }
+        std::cout << nameID.id << " " << nameID.name << std::endl;
     }
 
-    
     return 0;
 }
 

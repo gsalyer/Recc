@@ -5,9 +5,28 @@
 #include <vector>
 #include <map>
 #include <iostream>
-//#include <experimental/iterator>
+// #include <boost/multi_index_container.hpp>
+// #include <boost/multi_index/ordered_index.hpp>
+// #include <boost/multi_index/identity.hpp>
+// #include <boost/multi_index/member.hpp>
+// #include <boost/multi_index/mem_fun.hpp>
+#include "util.h"
 
-struct Genre
+// using namespace ::boost;
+// using namespace ::boost::multi_index;
+
+// struct IndexByID {};
+// struct IndexByTitle {};
+
+// typedef multi_index_container<
+//     Movie,
+//     indexed_by<
+//     ordered_unique<tag<IndexByID>, const_mem_fun<Movie, int, &Movie::getId>>,
+//     ordered_non_unique<tag<IndexByTitle>, const_mem_fun<Movie, std::string, &Movie::getTitle>>
+//     >
+// > MovieContainer;
+
+struct NamesIDs
 {
     int id{0};
     std::string name{"N/A"};
@@ -19,17 +38,20 @@ public:
     Movie();
     Movie(int id);
     int getId() const;
+    int getUserScore() const;
     std::string getTitle() const;
-    std::vector<Genre> getGenres() const;
+    std::vector<NamesIDs> getGenres() const;
     void setId(int id);
+    void setUserScore(int score);
     void setTitle(std::string title);
-    void addGenre(Genre genre);
+    void addGenre(NamesIDs& genre);
+    void addGenreMulti(std::vector<NamesIDs> genres);
     void printGenres() const;
 private:
     int id{0};
-    //int csvRowNum{0};
+    int userScore{0};
     std::string title{"N/A"};
-    std::vector<Genre> genres;
+    std::vector<NamesIDs> genres;
 };
 
 class UserList
@@ -38,7 +60,7 @@ public:
     UserList();
     UserList(std::vector<Movie> userMovies);
     std::vector<Movie> getUserMovies() const;
-    void addMovie(Movie movie);
+    void addMovie(Movie& movie);
 private:
     std::vector<Movie> userMovies;
 };
