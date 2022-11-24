@@ -22,37 +22,37 @@ int main()
         std::cout << "Search for a movie title to add to your list: " << std::endl;
 
         std::string searchTerm = "";
-        std::cin.ignore();
+        std::cin.ignore(); //otherwise previous input is read
         std::getline(std::cin, searchTerm);
         std::vector<Movie> searchResults = FILEIO::searchMovies(movies, searchTerm); //search for user's movies by title in the map of all movies
         int resultNum = 1;
         for (const auto& resultMovie : searchResults)
         {
-            std::cout << resultNum << ". " << resultMovie.getTitle() << std::endl;
+            std::cout << resultNum << ". " << resultMovie.getTitle() << std::endl; //prints ordered list of search results
             resultNum++;
         }
         std::cout << "Enter the number of the movie you want to add to your list:" << std::endl;
         std::cout << "Enter 0 if none are correct." << std::endl;
         int choice;
         std::cin >> choice;
-        if (choice == 0)
+        if (choice == 0) //restart loop
         {
             continue;
         }
         else
         {
-            user.addMovie(searchResults.at(choice - 1));
+            user.addMovie(searchResults.at(choice - 1)); //add movie to user's list from search results
             std::cout << "(" << i + 1 << "/5) " << "Added \"" << searchResults[choice - 1].getTitle() << "\" to your list." << std::endl;
-            i++;
+            i++; //increment loop counter only if movie is added to user's list
         }
     }
-    user.calcWeights();
+    user.calcWeights(); //calculate weights for each genre in user's list
     std::cout << "How many movies would you like to see recommended?" << std::endl;
     int numRecs;
     std::cin >> numRecs;
     std::multimap<int, Movie> recommendations = FILEIO::calcScores(movies, user); //given a map of all movies, return a map of the top n movies based on the total score
     std::cout << "Here are your top " << numRecs << " recommendations:" << std::endl;
-    auto itr = recommendations.rbegin();
+    auto itr = recommendations.rbegin(); //reverse iterator to print in descending order
     for (int i = 0; i < numRecs; i++)
     {
         //point to the current highest score and print the movie title

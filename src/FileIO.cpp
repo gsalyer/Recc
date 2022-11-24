@@ -10,7 +10,7 @@ namespace FILEIO
         std::string csvStr;
         while (getline(file, line))
         {
-            csvStr += line + "\n";
+            csvStr += line + "\n"; //each row separated by newline
         }
         return csvStr;
     }
@@ -20,12 +20,12 @@ namespace FILEIO
     std::map<int, Movie> parseCSV(const jsoncons::ojson& j)
     {
         std::map<int, Movie> movies;
-        for (const auto& row : j.array_range())
+        for (const auto& row : j.array_range()) //array_range returns the range of the ojson object
         {
             Movie movie;
-            movie.setId(row["id"].as<int>());
-            movie.setTitle(row["title"].as<std::string>());
-            movie.addGenreMulti(parseNamesIDs(row["genres"].as<std::string>()));
+            movie.setId(row["id"].as<int>()); //set movie id from json, row["id"] acts similar to a map with the column header as the key and the cell value as the value
+            movie.setTitle(row["title"].as<std::string>()); //set movie title from json
+            movie.addGenreMulti(parseNamesIDs(row["genres"].as<std::string>())); //set movie genres vector from json
             movies.insert(std::pair<int, Movie>(movie.getId(), movie));
         }
         return movies;
@@ -67,10 +67,10 @@ namespace FILEIO
             }
             else if (c == '}')
             {
-                id = std::stoi(idStr);
+                id = std::stoi(idStr); //str to int
                 name = nameStr;
-                NamesIDs namesID{id, name};
-                namesIDs.push_back(namesID);
+                NamesIDs nameID{id, name};
+                namesIDs.push_back(nameID);
                 idStr = "";
                 nameStr = "";
                 idFlag = false;
@@ -78,6 +78,7 @@ namespace FILEIO
             }
             else if (c == ':')
             {
+                //series of conditionals to determine which string to append to
                 if (idFlag)
                 {
                     idFlag = false;

@@ -71,7 +71,7 @@ void Movie::addGenreMulti(std::vector<NamesIDs> genres)
     this->genres = genres;
 }
 
-//print grenre names separated by commas
+//print grenre names separated by spaces
 void Movie::printGenres() const
 {
     for (const auto& genre : genres)
@@ -137,9 +137,9 @@ std::map<int, int> UserList::calcUserGenreWeights()
 int UserList::getUserGenreWeight(int id) const
 {
     auto it = userGenreWeights.find(id);
-    if (it != userGenreWeights.end())
+    if (it != userGenreWeights.end()) //if found
     {
-        return it->second;
+        return it->second; //return weight
     }
     else
     {
