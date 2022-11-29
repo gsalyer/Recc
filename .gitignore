@@ -33,6 +33,7 @@
 
 # Other files
 main
+*.odt
 
 # Extra folders
 .idea/
